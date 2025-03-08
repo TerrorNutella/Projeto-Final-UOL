@@ -53,8 +53,10 @@ O que é requerido na atividade:
 
 A proposta é realizar a migração de seu ambiente para a AWS, separado em duas etapas:
 
-1. Migração para AWS (Lift-and-Shift)
-2. Modernização para AWS (EKS e Serviços Gerenciados)
+1. Migração para AWS (Lift-and-Shift).
+2. Modernização para AWS (EKS e Serviços Gerenciados).
+3. Com base nos requisitos do Projeto a disciplina de FinOps está em uso, Virgínia US-EAST-1 foi selecionada não observando compliance ou leis e sim eficiência de custos.
+4. Especificidades e configurações extras dos serviços não foram utilizadas.
 
 
 ## Etapa 1. Migração para AWS (Lift-and-Shift)
@@ -148,15 +150,163 @@ Cálculo dos custos estimados em doláres dos serviços na AWS utilizando o **Pr
 
 <div align="center">
   <img src="./src/estimativa migracation.png" width="735px">
-   <p><em>Arquitetura nova Zoom</em></p>
+   <p><em>Estimativa de Custos Totais</em></p>
 </div>
 
-###Detalhamento
+### Premissas e Detalhamento dos custos
 
-![Image](https://github.com/user-attachments/assets/0535439f-6554-4908-804b-b0b6bc3a3057)
-Estimativa de custo da migração. [Estimativa Migração](/Estimativa Migração.pdf)
-![Image](https://github.com/user-attachments/assets/83307d63-75f3-4150-9d6c-ff35c7b33361)
-Estimativa da infraestrutura migrada. [Estimativa Migrada](/Estimativa Migrada.pdf)
+## 1. Valores estimados que podem sofrer alterações como alteração no projeto, novas configurações e câmbio.
+## 2. Não será utilizado o total mensurado na calculadora no total de 1 mês.
+## 3. Não foi utilizado descontos ou incentivos fiscais.
+
+</br>
+
+<div align="center">
+  <img src="./src/detail cost 1.png" width="735px">
+   <p><em>Detalhamento de Custos 1</em></p>
+</div>
+
+</br>
+
+<div align="center">
+  <img src="./src/detail cost 2.png" width="735px">
+   <p><em>Detalhamento de Custos 2</em></p>
+</div>
+
+</br>
+
+<div align="center">
+  <img src="./src/detail cost 3.png" width="735px">
+   <p><em>Detalhamento de Custos 3</em></p>
+</div>
+
+
+##  Detalhamento dos Custos para 3 Dias
+
+---
+
+#### 1. AWS Database Migration Service
+- **Custo mensal**: 507,91 USD  
+- **Custo para 3 dias**:  
+  `(507,91 / 30) * 3 = 50,79 USD`
+
+---
+
+#### 2. AWS Application Migration Service
+- **Custo mensal**: 0,00 USD  
+- **Custo para 3 dias**: 0,00 USD  
+
+---
+
+#### 3. Amazon RDS for MySQL (24% Utilizado/Mês)
+- **Custo mensal**: 484,24 USD  
+- **Custo para 3 dias**:  
+  `(484,24 / 30) * 3 = 48,42 USD`
+
+---
+
+#### 4. Amazon RDS for MySQL (100% Utilizado/Mês)
+- **Custo mensal**: 954,98 USD  
+- **Custo para 3 dias**:  
+  `(954,98 / 30) * 3 = 95,50 USD`
+
+---
+
+#### 5. Amazon EC2 (Compute Savings Plans 3yr All Upfront)
+- **Custo mensal**: 14,00 USD  
+- **Custo para 3 dias**:  
+  `(14,00 / 30) * 3 = 1,40 USD`
+
+---
+
+#### 6. Amazon EC2 (EC2 Instance Savings Plans 3yr All Upfront)
+- **Custo mensal**: 0,50 USD  
+- **Custo para 3 dias**:  
+  `(0,50 / 30) * 3 = 0,05 USD`
+
+---
+
+#### 7. Amazon Simple Storage Service (S3)
+- **Custo mensal**: 47,37 USD  
+- **Custo para 3 dias**:  
+  `(47,37 / 30) * 3 = 4,74 USD`
+
+---
+
+#### 8. Amazon Virtual Private Cloud (VPC)
+- **Custo mensal**: 10,95 USD  
+- **Custo para 3 dias**:  
+  `(10,95 / 30) * 3 = 1,10 USD`
+
+---
+
+#### 9. AWS Systems Manager
+- **Custo mensal**: 0,00 USD  
+- **Custo para 3 dias**: 0,00 USD  
+
+---
+
+#### 10. AWS Private Certificate Authority
+- **Custo mensal**: 150,00 USD  
+- **Custo para 3 dias**:  
+  `(150,00 / 30) * 3 = 15,00 USD`
+
+---
+
+### Resumo dos Custos para 3 Dias
+
+| **Serviço**                              | **Custo para 3 Dias (USD)** |
+|------------------------------------------|-----------------------------|
+| AWS Database Migration Service           | 50,79                       |
+| AWS Application Migration Service        | 0,00                        |
+| Amazon RDS for MySQL (24% Utilizado)     | 48,42                       |
+| Amazon RDS for MySQL (100% Utilizado)    | 95,50                       |
+| Amazon EC2 (Compute Savings Plans)       | 1,40                        |
+| Amazon EC2 (EC2 Instance Savings Plans)  | 0,05                        |
+| Amazon S3                                | 4,74                        |
+| Amazon VPC                               | 1,10                        |
+| AWS Systems Manager                      | 0,00                        |
+| AWS Private Certificate Authority        | 15,00                       |
+| **Total**                                | **217,00 USD**              |
+
+---
+
+</br>
+</br>
+
+<div align="center">
+  <img src="./src/conversao em reais.png" width="735px">
+   <p><em>Conversão em Reais</em></p>
+</div>
+
+
+
+### Observações
+1. Os custos de **upfront** (pagamento antecipado) não foram incluídos no cálculo, pois são valores fixos pagos uma única vez e não dependem do período de utilização.
+2. O custo total estimado para **3 dias** usando as premissas estabelecidas é de **217,00 USD**.
+
+</br>
+</br>
+
+
+
+<div align="center">
+  <img src="./src/total migrada AS IS.png" width="735px">
+   <p><em>Estimativa valor total da infraestrutura Migrada AS IS</em></p>
+</div>
+
+</br>
+
+| **Descrição**            | **Custo (USD)**   |
+|--------------------------|------------------|
+| 💰 **Custo Inicial (Upfront Cost)** | **0.00**       |
+| 📆 **Custo Mensal (Monthly Cost)**  | **1,353.57**   |
+| 🏦 **Custo Anual (Total 12 meses)**  | **16,242.84**  |
+
+
+##  Detalhamento dos Custos da Infraestrutura Migrada - Período de 1 mês
+
+
 
 ---
 
