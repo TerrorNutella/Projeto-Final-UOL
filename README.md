@@ -467,6 +467,33 @@ A migração para a nova infraestrutura foi realizada em duas fases:
 
 A nova arquitetura reduz a complexidade do gerenciamento de infraestrutura, melhora a resiliência e otimiza custos a longo prazo. Além disso, a flexibilidade da arquitetura permite ajustes e evoluções futuras conforme necessário.
 
+
+## **Referências**
+
+https://aws.amazon.com/solutions/guidance/migrating-vmware-virtual-machines-to-amazon-ec2/?did=sl_card&trk=sl_card
+
+https://aws.amazon.com/solutions/guidance/migrating-vmware-virtual-machines-to-amazon-ec2/?did=sl_card&trk=sl_card
+
+https://instances.vantage.sh/
+
+https://learnk8s.io/kubernetes-instance-calculator
+
+https://aws.amazon.com/solutions/guidance/migrating-vmware-virtual-machines-to-amazon-ec2/?did=sl_card&trk=sl_card
+
+https://aws.amazon.com/solutions/guidance/low-latency-high-throughput-inference-using-efficient-compute-on-amazon-eks/?did=sl_card&trk=sl_card
+
+https://aws.amazon.com/solutions/guidance/automated-provisioning-of-application-ready-amazon-eks-clusters/?did=sl_card&trk=sl_card
+
+https://aws.amazon.com/solutions/guidance/automated-provisioning-of-application-ready-amazon-eks-clusters/?did=sl_card&trk=sl_card
+
+https://aws.amazon.com/solutions/guidance/low-latency-high-throughput-inference-using-efficient-compute-on-amazon-eks/?did=sl_card&trk=sl_card
+
+https://explore.skillbuilder.aws/learn/course/external/view/elearning/10343/
+
+https://awsapplication-migration-service-aws-mgn-a-technical-introduction-portuguese
+
+https://explore.skillbuilder.aws/learn/course/external/view/elearning/1915/introductionto-database-migration-portuguese
+
 ---
 
 ## **Licença**
