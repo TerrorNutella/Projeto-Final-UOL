@@ -303,70 +303,178 @@ Cálculo dos custos estimados em doláres dos serviços na AWS utilizando o **Pr
 | 📆 **Custo Mensal (Monthly Cost)**  | **1,353.57**   |
 | 🏦 **Custo Anual (Total 12 meses)**  | **16,242.84**  |
 
+</br>
 
 ##  Detalhamento dos Custos da Infraestrutura Migrada - Período de 1 mês
 
 
+### Tabela de Custos Mensais AWS
+
+| **Nome do Serviço**                  | **Grupo** | **Região**           | **Custo Inicial (Upfront)** | **Custo Mensal** | **Status** | **Descrição**                                                                 | **Configuração**                                                                                                                                                                                                 |
+|--------------------------------------|-----------|----------------------|-----------------------------|------------------|------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Amazon Route 53                      | -         | US East (N. Virginia) | 0.00 USD                    | 0.50 USD         | -          | -                                                                            | Hosted Zones (1)                                                                                                                                                                                                |
+| AWS Web Application Firewall (WAF)   | -         | US East (N. Virginia) | 0.00 USD                    | 45.60 USD        | -          | -                                                                            | Número de Web ACLs utilizadas (5 por mês), Número de Regras por Web ACL (1 por mês), Número de Grupos de Regras por Web ACL (1 por mês), Número de Regras dentro de cada Grupo de Regras (1 por mês), Número de Grupos de Regras Gerenciados por Web ACL (1 por mês) |
+| Amazon CloudFront                    | -         | US East (N. Virginia) | 0.00 USD                    | 10.55 USD        | -          | -                                                                            | Transferência de dados para a internet (100 GB por mês), Transferência de dados para a origem (100 GB por mês), Número de solicitações (HTTPS) (50000 por mês)                                                  |
+| AWS Private Certificate Authority    | -         | US East (N. Virginia) | 0.00 USD                    | 150.00 USD       | -          | -                                                                            | Número de CAs Privados (3)                                                                                                                                                                                     |
+| Amazon Simple Storage Service (S3)   | -         | US East (N. Virginia) | 0.00 USD                    | 29.35 USD        | -          | -                                                                            | Armazenamento S3 Standard (100 GB por mês), Solicitações PUT, COPY, POST, LIST para S3 Standard (10000), Solicitações GET, SELECT e outras (10000), Dados retornados pelo S3 Select (10000 GB por mês), Dados escaneados pelo S3 Select (10000 GB por mês) |
+| Amazon Virtual Private Cloud (VPC)   | -         | US East (N. Virginia) | 0.00 USD                    | 46.35 USD        | -          | -                                                                            | Número de NAT Gateways (1)                                                                                                                                                                                     |
+| Elastic Load Balancing               | -         | US East (N. Virginia) | 0.00 USD                    | 63.87 USD        | -          | -                                                                            | Número de Application Load Balancers (3)                                                                                                                                                                       |
+| Amazon RDS for MySQL                 | -         | US East (N. Virginia) | 0.00 USD                    | 986.70 USD       | -          | -                                                                            | Armazenamento (600 GB), Armazenamento para cada instância RDS (SSD de Propósito Geral (gp2)), Nós (1), Tipo de instância (db.m1.xlarge), Utilização (100% por mês), Opção de implantação (Multi-AZ), Armazenamento adicional de backup (1200 GB), Tamanho total do backup processado para exportação (1200 GB por mês) |
+| Amazon EC2 (t2.small)                | -         | US East (N. Virginia) | 0.00 USD                    | 8.68 USD         | -          | -                                                                            | Tenancy (Instâncias Compartilhadas), Sistema operacional (Linux), Carga de trabalho (Consistente, Número de instâncias: 1), Tipo de instância (t2.small), Estratégia de preço (Planos de Economia de Instâncias EC2 3 anos Sem Pagamento Inicial), Armazenamento EBS (5 GB) |
+| Amazon EC2 (t4g.medium)              | -         | US East (N. Virginia) | 0.00 USD                    | 11.97 USD        | -          | -                                                                            | Tenancy (Instâncias Compartilhadas), Sistema operacional (Linux), Carga de trabalho (Consistente, Número de instâncias: 1), Tipo de instância (t4g.medium), Estratégia de preço (Planos de Economia de Instâncias EC2 3 anos Sem Pagamento Inicial), Armazenamento EBS (5 GB) |
 
 ---
+
+### Observações
+1. Os custos são estimados e podem variar dependendo do uso real dos serviços.
+2. O **AWS Pricing Calculator** fornece apenas uma estimativa e não inclui impostos que possam ser aplicáveis.
+3. Para valores mais precisos, consulte a [página oficial da AWS](https://aws.amazon.com/pricing/).
+
+---
+
+### Total Mensal Estimado
+- **Custo Total Mensal**: **1.353,17 USD**
+
+---
+
+### Custo Total Mensal em BRL
+- **Cálculo**:  
+  `1.353,17 USD * 5,80 BRL/USD = 7.848,39 BRL`
+- **Resultado**: **7.848,39 BRL**
+---
+
+</br>
+</br>
+
 
 ## Etapa 2. Modernização para AWS (EKS e Serviços Gerenciados)
 
 ### Atividades Necessárias para a Modernização
-1. Configuração da infraestrutura como código com Terraform e CloudFormation.
+1. Configuração da infraestrutura como código com Terraform.
 2. Criação do cluster Kubernetes no Amazon EKS.
-3. Configuração do CI/CD usando GitHub, CodePipeline, CodeBuild e ECR.
+3. Configuração do CI/CD usando GitHub e GitHubActions.
 4. Implantação do backend e frontend como microservices em pods do EKS.
 5. Configuração do autoescalonamento de pods e nodes (HPA e ASG).
-6. Configuração de armazenamento persistente para banco de dados e objetos estáticos.
-7. Implementação de monitoramento, segurança e backup.
+6. Configuração de armazenamento persistente para banco de dados e EFS objetos estáticos.
+7. Implementação de observabilidade opensource.
+8. Implementação de Backups com Lifecycle no Bucket S3
 
 ### Ferramentas Utilizadas
-- **Amazon EKS (Elastic Kubernetes Service)** - Para orquestração de containers.
+ **Amazon EKS (Elastic Kubernetes Service)** - Para orquestração de containers.
+ - **AWS EC2** - Os nós do Amazon EKS são provisionados como instâncias EC2, que rodam os contêineres das aplicações permitindo uso Spot.
 - **Amazon RDS (Multi-AZ)** - Para banco de dados gerenciado.
-- **Amazon S3** - Para armazenamento de imagens e objetos estáticos.
-- **AWS CodePipeline + CodeBuild + ECR** - Para pipeline de CI/CD.
+- **Amazon RDS Proxy** - O RDS Proxy atua como um intermediário entre as aplicações no EKS e o banco de dados RDS.
+- **Amazon S3** - Para armazenamento de backups com Lifecycle.
+- **GitHub + Github Actions + Terraform** - Para pipeline de CI/CD.
 - **AWS Auto Scaling** - Para escalar aplicações automaticamente.
 - **AWS IAM e Secrets Manager** - Para gerenciamento de credenciais e permissões.
-- **AWS CloudWatch e GuardDuty** - Para monitoramento e segurança.
+- **AWS NLB** - O NLB é usado para expor o Kubernetes API do EKS para acesso externo
+- **AWS EFS** - O EFS é usado para armazenamento persistente de dados compartilhados entre os pods do EKS.Ele é integrado ao Kubernetes através de Persistent Volumes (PV) e Persistent Volume Claims (PVC).
+
+
 
 ### Diagrama da Infraestrutura na AWS (Modernização com EKS)
-![Image](https://github.com/user-attachments/assets/67331a0c-effc-4276-97a6-6994258d261c)
+
+
+</br>
+</br>
+
+
+<div align="center">
+  <img src="./src/modernizacao.gif" width="735px">
+   <p><em>Modernização para Kubernetes</em></p>
+</div>
+
+
+</br>
+</br>
+
+<div align="center">
+  <img src="./src/modernizacao AWS.png" width="735px">
+   <p><em>Modernização para Kubernetes - Zoom</em></p>
+</div>
+
+
 #### Descrição do Diagrama
-A nova infraestrutura será baseada em Kubernetes no EKS e conterá:
-- **CI/CD:** O fluxo de desenvolvimento ocorre no GitHub, seguido pelo Terraform para provisionamento e CodePipeline para automação da entrega contínua. CodeBuild compila as imagens e armazena no ECR.
-- **Cluster EKS:** Distribuído em três AZs, dividido entre ambiente de produção e teste.
-  - **Produção:** Roda em instâncias EC2 com node groups e autoescalonamento (HPA e ASG).
-  - **Testes:** Roda no AWS Fargate para menor custo e escalabilidade sob demanda.
-  - **Ingress Controller** gerencia a entrada de tráfego e encaminha para os serviços apropriados.
-- **Banco de Dados:** Amazon RDS em Multi-AZ para alta disponibilidade.
-- **Networking:** NAT Gateway para permitir acesso seguro a serviços externos.
-- **Segurança:** WAF, GuardDuty, Secrets Manager e políticas de acesso rigorosas.
 
-### Segurança
-- **Network Policies no Kubernetes** para controlar tráfego entre pods.
-- **IAM e Secrets Manager** para credenciais seguras.
-- **Monitoramento com CloudWatch e GuardDuty.**
-- **WAF e Shield** para proteção contra ataques externos.
+A nova infraestrutura é projetada para ser altamente escalável, segura e eficiente, utilizando uma combinação de serviços gerenciados da AWS e práticas do Framework Well-Archtected e Zero Trust. A seguir, detalhamos os principais componentes e fluxos da arquitetura:
 
-### Backup
-- **Amazon S3** para armazenar backups automatizados.
-- **AWS Backup e snapshots do RDS** para recuperação em desastres.
+## **CI/CD:**
 
-### Custo da Infraestrutura na AWS
-Cálculo dos custos estimados dos serviços na AWS utilizando o **Pricing Calculator.**
-![Image](https://github.com/user-attachments/assets/a7df2a44-8fd9-4e42-8b09-0b0f7b1e29d7)
-Estimativa de custo da infraestrutura. [Estimativa Migrada](/Estimativa Modernização.pdf)
+ GitHub + GitHub Actions + Terraform: O fluxo de desenvolvimento começa no GitHub, onde o código é versionado e gerenciado. O GitHub Actions automatiza o pipeline de CI/CD, enquanto o Terraform é responsável pelo provisionamento da infraestrutura como código (IaC). O Terraform define e implanta todos os recursos da AWS, como EKS, RDS, VPC, e outros.
+
+## **Cluster EKS (Elastic Kubernetes Service)**
+
+- **Distribuição em Três AZs**: O cluster EKS é distribuído em três zonas de disponibilidade (AZs) para garantir alta disponibilidade e resiliência.
+
+ Utiliza **instâncias EC2** com **node groups** e **Auto Scaling Groups (ASG)** para escalar automaticamente os nós do cluster com base na demanda. O **Horizontal Pod Autoscaler (HPA)** ajusta o número de pods conforme a carga de trabalho.
+- **Ingress Controller**: Gerencia o tráfego de entrada (HTTP/HTTPS) e o encaminha para os serviços apropriados dentro do cluster. 
 
 ---
 
-## 3. Conclusão
-A migração inicial foi realizada via lift-and-shift, garantindo uma transição rápida e segura para a AWS. Posteriormente, a modernização foi implementada utilizando serviços gerenciados como EKS, RDS, CodePipeline e Fargate, garantindo escalabilidade, segurança e eficiência operacional. A nova infraestrutura reduz a complexidade do gerenciamento, melhora a resiliência e otimiza custos a longo prazo. Caso haja necessidade de ajustes ou novas implementações, a arquitetura permite flexibilidade para futuras evoluções.
+## **Banco de Dados**
+
+- **Amazon RDS (Multi-AZ)**: O banco de dados é provisionado em modo **Multi-AZ** para garantir alta disponibilidade e recuperação rápida em caso de falhas. O **Amazon RDS Proxy** é utilizado para gerenciar conexões de banco de dados, melhorando a escalabilidade e a eficiência.
+
+---
+
+## **Networking**
+
+- **VPC e Subnets**: A infraestrutura é provisionada em uma **Amazon VPC** com subnets públicas e privadas. As subnets privadas hospedam os nós do EKS e o banco de dados RDS, enquanto as subnets públicas são usadas para recursos que precisam de acesso à internet, como o NAT Gateway.
+- **NAT Gateway**: Permite que recursos em subnets privadas acessem a internet de forma segura para atualizações ou chamadas a APIs externas.
+- **Route 53**: Gerencia o DNS para os serviços expostos publicamente.
+
+---
 
 
-## Licença
+## **Segurança**
+
+- **IAM e Secrets Manager**: O **AWS Identity and Access Management (IAM)** gerencia permissões de acesso aos recursos da AWS, enquanto o **Secrets Manager** armazena e gerencia credenciais sensíveis, como senhas e tokens.
+- **Network Policies no Kubernetes**: Controlam o tráfego entre os pods no cluster EKS, garantindo que apenas as comunicações necessárias sejam permitidas.
+- **WAF e Shield**: O **AWS WAF (Web Application Firewall)** protege as aplicações contra ataques comuns, como SQL injection e cross-site scripting (XSS). O **AWS Shield** oferece proteção contra ataques DDoS.
+- **Observabilidade**: Stack LGTM OpenSource oferecida como bônus em conjunto com nivelamento de conhecimento e operação do time caso cliente feche o contrato sem custos adicionais.
+
+
+---
+
+## **Backup e Recuperação**
+
+- **Amazon S3**: Armazena backups automatizados de dados e configurações. Políticas de **Lifecycle** são aplicadas para gerenciar o ciclo de vida dos dados e reduzir custos.
+- **AWS Backup e Snapshots do RDS**: O **AWS Backup** automatiza o backup de recursos como EFS, RDS e EC2. Snapshots do RDS são usados para recuperação rápida em caso de desastres.
+
+---
+
+## **Custos da Infraestrutura na AWS**
+
+- **Estimativa de Custos**: Os custos são calculados utilizando o **AWS Pricing Calculator**, considerando serviços como EKS, EC2, RDS, S3, NAT Gateway, e outros. A estimativa de custos é documentada e revisada regularmente para garantir otimização.
+
+---
+
+
+<div align="center">
+  <img src="./src/arqmodernizadavalues.png" width="735px">
+   <p><em>Estimativa valor total da infraestrutura Modernizada</em></p>
+</div>
+
+</br>
+
+## **Conclusão**
+
+A migração para a nova infraestrutura foi realizada em duas fases:
+1. **Lift-and-Shift**: Migração inicial para a AWS, garantindo uma transição rápida e segura.
+2. **Modernização**: Implementação de serviços gerenciados como **EKS**, **RDS**, **Fargate**, e **CI/CD**, que proporcionam escalabilidade, segurança e eficiência operacional.
+3. **Observabilidade** 
+
+A nova arquitetura reduz a complexidade do gerenciamento de infraestrutura, melhora a resiliência e otimiza custos a longo prazo. Além disso, a flexibilidade da arquitetura permite ajustes e evoluções futuras conforme necessário.
+
+---
+
+## **Licença**
+
 Este projeto está licenciado sob a [MIT License](LICENSE).
 
-## Créditos
-Projeto desenvolvido como parte do Projeto Final para #PB - NOV 2024 | DevSecOps.
+---
 
+## **Créditos**
+
+Projeto desenvolvido como parte do Projeto Final para **#PB - NOV 2024 | DevSecOps**.
