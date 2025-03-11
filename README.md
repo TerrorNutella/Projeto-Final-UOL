@@ -22,8 +22,10 @@ Atualmente usamos:
 
 ### Diagrama da situalção atual
 
-![Image](https://github.com/user-attachments/assets/8c9c073d-3c98-476d-8253-459a36aa8c6e)
-
+<div align="center">
+  <img src="./src/diagramaatual.png" width="735px">
+   <p><em>Diagrama Atual</em></p>
+</div>
 
 Nosso pedido é um ORÇAMENTO com:
 
